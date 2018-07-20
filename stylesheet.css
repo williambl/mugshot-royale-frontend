@@ -1,0 +1,47 @@
+html {
+    margin: 1em;
+
+}
+
+h1 {
+    font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+    text-align: center;   
+}
+
+h3 {
+    font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+input, select {
+    margin: 2em;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-gap: 10px;
+    grid-template-areas:
+    "header header header header"
+    "side main main ."
+    "footer footer footer footer";
+}
+
+.grid {
+    padding: 20px;
+}
+
+.grid-header {
+    grid-area: header;
+}
+
+.grid-main {
+    grid-area: main;
+}
+
+.grid-footer {
+    grid-area: footer;
+}
+
+.grid-side {
+    grid-area: side;
+}

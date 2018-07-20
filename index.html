@@ -6,15 +6,27 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
         <script src="mugshot.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+        <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <h1 class="title">Mugshot Royale</h1>
-        <h3 id="name">name</h3>
-        <form>
-            <select id="player">
-            </select>
-            <input type="file" id="photo" />
-            <input type="button" id="upload" value="Upload Photo" />
-        </form>
+        <div class="grid-wrapper">
+            <div class="grid grid-header">
+                <h1 class="title">Mugshot Royale</h1>
+            </div>
+            <div class="grid grid-side">
+                <h3 id="name">name</h3>
+            </div>
+            <div class="grid grid-main">
+                <form class="form-group">
+                    <select class="form-select" id="player"></select>
+
+                    <input type="file" class="form-input" id="photo" />
+
+                    <input type="button" class="btn btn-primary" id="upload" value="Upload Photo" />
+                </form>
+            </div>
+        </div>
     </body>
 </html>
