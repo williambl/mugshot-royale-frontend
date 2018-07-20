@@ -1,4 +1,14 @@
 $(function(){
+    $.get({
+        url: '/players',
+        success: function (data, textStatus, jqXHR) {
+            $.each(JSON.parse(data), function(index, item){
+                $("select#player").append($("<option></option>")
+                    .attr("value",item.name)
+                    .text(item.name));
+            });
+        }
+    });
     $("#upload").click(function(){
         if ($("#photo").prop("files").length) {
             $.ajax({
