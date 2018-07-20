@@ -30,8 +30,14 @@ form {
     grid-gap: 10px;
     grid-template-areas:
     "header header header header"
+    "side map map ."
+    "side map map ."
     "side main main ."
     "footer footer footer footer";
+}
+
+#map {
+    height: 100%;
 }
 
 .grid {
@@ -52,4 +58,9 @@ form {
 
 .grid-side {
     grid-area: side;
+}
+
+.grid-map {
+    grid-area: map;
+    height: 600px;
 }
