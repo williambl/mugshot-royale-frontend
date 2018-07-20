@@ -36,7 +36,8 @@ function updatePlayerList () {
             var select = $("select#player");
             select.empty();
             $.each(JSON.parse(data), function(index, item){
-                if (item.isAlive) {
+                console.log(index)
+                if (item.isAlive && index != Cookies.get("id")) {
                     select.append($("<option></option>")
                         .attr("value",item.name)
                         .text(item.name));
