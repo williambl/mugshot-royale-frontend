@@ -43,6 +43,13 @@ $(function(){
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: 12,
     }).addTo(map);
+
+    var safeZone = L.circle([51.508, -0.11], {
+            color: 'green',
+            fillColor: '#0f3',
+            fillOpacity: 0.5,
+            radius: 500
+    }).addTo(map);
 })
 
 function updatePlayerList () {
