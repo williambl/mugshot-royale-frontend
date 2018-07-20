@@ -38,11 +38,22 @@ $(function(){
         updatePlayerList();
         alert(data.name + " has left!");
     });
-    var map = L.map("map").setView([51.505, -0.09], 13);
+    var map = L.map("map").fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: 20,
     }).addTo(map);
+    map.locate({setView: true, maxZoom: 16});
+    function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+
+        L.marker(e.latlng).addTo(map)
+            .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+        L.circle(e.latlng, radius).addTo(map);
+    }
+
+    map.on('locationfound', onLocationFound);
 
     var safeZone = L.circle([51.508, -0.11], {
             color: 'green',
