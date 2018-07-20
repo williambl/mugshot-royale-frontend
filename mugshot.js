@@ -36,9 +36,11 @@ function updatePlayerList () {
             var select = $("select#player");
             select.empty();
             $.each(JSON.parse(data), function(index, item){
-                select.append($("<option></option>")
-                    .attr("value",item.name)
-                    .text(item.name));
+                if (item.isAlive) {
+                    select.append($("<option></option>")
+                        .attr("value",item.name)
+                        .text(item.name));
+                }
             });
         }
     });
