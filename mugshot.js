@@ -17,7 +17,15 @@ $(function(){
     });
     socket.on("player-joined", function(data) {
         updatePlayerList();
-        alert("websocket!");
+        alert(data.name + " has joined!");
+    });
+    socket.on("player-eliminated", function(data) {
+        updatePlayerList();
+        alert(data.name + " has been eliminated!");
+    });
+    socket.on("player-left", function(data) {
+        updatePlayerList();
+        alert(data.name + " has left!");
     });
 })
 
