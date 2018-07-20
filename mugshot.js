@@ -1,14 +1,4 @@
 $(function(){
-    $.get({
-        url: '/players',
-        success: function (data, textStatus, jqXHR) {
-            $.each(JSON.parse(data), function(index, item){
-                $("select#player").append($("<option></option>")
-                    .attr("value",item.name)
-                    .text(item.name));
-            });
-        }
-    });
     $("#upload").click(function(){
         if ($("#photo").prop("files").length) {
             $.ajax({
@@ -19,5 +9,29 @@ $(function(){
                 contentType: $("#photo").prop('files')[0].type
             });
         }
-    })
+    });
+    updatePlayerList();
+    var socket = io.connect('http://' + document.domain + ':' + location.port + "/websocket");
+    socket.on("connect", function() {
+        alert("connected");
+    });
+    socket.on("player-joined", function(data) {
+        updatePlayerList();
+        alert("websocket!");
+    });
 })
+
+function updatePlayerList () {
+    $.get({
+        url: '/players',
+        success: function (data, textStatus, jqXHR) {
+            var select = $("select#player");
+            select.empty();
+            $.each(JSON.parse(data), function(index, item){
+                select.append($("<option></option>")
+                    .attr("value",item.name)
+                    .text(item.name));
+            });
+        }
+    });
+}
