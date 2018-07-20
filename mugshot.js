@@ -1,4 +1,4 @@
-var current_position, current_accuracy;
+var current_position, current_accuracy, safeZone, nextSafeZone, map;
 
 $(function(){
     $("#upload").click(function(){
@@ -40,9 +40,13 @@ $(function(){
         updatePlayerList();
         alert(data.name + " has left!");
     });
+    socket.on("safe-zone-will-shrink", function(data) {
+        updateSafeZone(data.radius, data.lat, data.long, data.time);
+        alert("Safe zone shrinking to " + data.radius + "m in " + data.time + " seconds!")
+    });
 
 
-    var map = L.map("map").fitWorld();
+    map = L.map("map").fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 20,
@@ -56,15 +60,29 @@ $(function(){
 
     map.on('locationfound', onLocationFound);
     map.on('locationerror', onLocationError);
+});
 
-
-    var safeZone = L.circle([51.508, -0.11], {
+function updateSafeZone (radius, lat, long, time) {
+    nextSafeZone = L.circle([lat, long], {
         color: 'green',
         fillColor: '#0f3',
         fillOpacity: 0.5,
-        radius: 500
+        radius: radius
     }).addTo(map);
-})
+
+    setTimeout(function() {
+        map.removeLayer(safeZone);
+        safeZone = L.circle([lat, long], {
+            color: 'green',
+            fillColor: '#0f3',
+            fillOpacity: 0.5,
+            radius: radius
+        }).addTo(map);
+
+        map.removeLayer(nextSafeZone);
+    }, time);
+
+}
 
 function onLocationFound(e) {
     if (current_position) {
