@@ -1,3 +1,5 @@
+var current_position, current_accuracy;
+
 $(function(){
     $("#upload").click(function(){
         if ($("#photo").prop("files").length) {
@@ -38,30 +40,48 @@ $(function(){
         updatePlayerList();
         alert(data.name + " has left!");
     });
+
+
     var map = L.map("map").fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-            maxZoom: 20,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        maxZoom: 20,
     }).addTo(map);
+
     map.locate({setView: true, maxZoom: 16});
-    function onLocationFound(e) {
-        var radius = e.accuracy / 2;
 
-        L.marker(e.latlng).addTo(map)
-            .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-        L.circle(e.latlng, radius).addTo(map);
-    }
+    setInterval (function() {
+        map.locate({setView: false, maxZoom: 16});
+    }, 5000);
 
     map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+
 
     var safeZone = L.circle([51.508, -0.11], {
-            color: 'green',
-            fillColor: '#0f3',
-            fillOpacity: 0.5,
-            radius: 500
+        color: 'green',
+        fillColor: '#0f3',
+        fillOpacity: 0.5,
+        radius: 500
     }).addTo(map);
 })
+
+function onLocationFound(e) {
+    if (current_position) {
+        map.removeLayer(current_position);
+        map.removeLayer(current_accuracy);
+    }
+    var radius = e.accuracy / 2;
+
+    current_position = L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    current_accuracy = L.circle(e.latlng, radius).addTo(map);
+}
+
+function onLocationError(e) {
+    alert(e.message);
+}
 
 function updatePlayerList () {
     $.get({
