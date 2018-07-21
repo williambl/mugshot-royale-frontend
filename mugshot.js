@@ -97,6 +97,14 @@ function onLocationError(e) {
     alert(e.message);
 }
 
+function toast(msg, type) {
+    $("#toaster").append($("<div></div>")
+        .html(msg)
+        .addClass("toast "+type)
+        .append($("<button></button>")
+        .addClass("btn btn-clear float-right")));
+}
+
 function updatePlayerList () {
     $.get({
         url: '/players',
