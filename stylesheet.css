@@ -24,6 +24,26 @@ form {
     margin-right:auto;
 }
 
+li.player {
+    list-style-type: none;
+    padding: .2em;
+    border-radius: 25px;
+    color: #fff;
+    text-align: center;
+}
+
+li.alive {
+    background: #32b643;
+}
+
+li.me {
+    background: #5755d9;
+}
+
+li.dead {
+    background: #e85600;
+}
+
 .grid-wrapper {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;

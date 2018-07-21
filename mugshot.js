@@ -95,15 +95,25 @@ function updatePlayerList () {
         url: '/players',
         success: function (data, textStatus, jqXHR) {
             var select = $("select#player");
+            var list = $("ul#player-list");
             select.empty();
+            list.empty();
             $.each(JSON.parse(data), function(index, item){
-                console.log(index)
                 if (item.isAlive && index != Cookies.get("id")) {
                     select.append($("<option></option>")
                         .attr("value",item.name)
                         .text(item.name));
+                    var player = list.append($("<li></li>")
+                        .addClass("player alive")
+                        .text(item.name))
                 } else if (index == Cookies.get("id")) {
-                    name.html(item.name);
+                    var player = list.prepend($("<li></li>")
+                        .addClass("player me")
+                        .text(item.name))
+                } else if (!item.isAlive) {
+                    var player = list.append($("<li></li>")
+                        .addClass("player dead")
+                        .text(item.name))
                 }
             });
         }
