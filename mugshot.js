@@ -12,17 +12,6 @@ $(function(){
             });
         }
     });
-    $.get({
-        url: '/players',
-        success: function (data, textStatus, jqXHR) {
-            var name = $("#name");
-            $.each(JSON.parse(data), function(index, item){
-                if (index == Cookies.get("id")) {
-                    name.html(item.name);
-                }
-            });
-        }
-    });
     updatePlayerList();
     var socket = io.connect('http://' + document.domain + ':' + location.port + "/websocket");
     socket.on("connect", function() {
@@ -113,6 +102,8 @@ function updatePlayerList () {
                     select.append($("<option></option>")
                         .attr("value",item.name)
                         .text(item.name));
+                } else if (index == Cookies.get("id")) {
+                    name.html(item.name);
                 }
             });
         }
