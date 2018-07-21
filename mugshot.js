@@ -29,6 +29,10 @@ $(function(){
         updatePlayerList();
         alert(data.name + " has left!");
     });
+    socket.on("start-game", function(data) {
+        addSafeZone(data.radius, data.lat, data.long);
+        alerT("Game Starting!")
+    })
     socket.on("safe-zone-will-shrink", function(data) {
         updateSafeZone(data.radius, data.lat, data.long, data.time);
         alert("Safe zone shrinking to " + data.radius + "m in " + data.time + " seconds!")
@@ -61,16 +65,19 @@ function updateSafeZone (radius, lat, long, time) {
 
     setTimeout(function() {
         map.removeLayer(safeZone);
-        safeZone = L.circle([lat, long], {
-            color: 'green',
-            fillColor: '#0f3',
-            fillOpacity: 0.5,
-            radius: radius
-        }).addTo(map);
-
         map.removeLayer(nextSafeZone);
+        addSafeZone(radius, lat, long);
     }, time);
 
+}
+
+function addSafeZone (radius, lat, long) {
+    return L.circle([lat, long], {
+        color: 'green',
+        fillColor: '#0f3',
+        fillOpacity: 0.5,
+        radius: radius
+    }).addTo(map);
 }
 
 function onLocationFound(e) {
