@@ -111,6 +111,7 @@ function toast(msg, type) {
                 $(this).parent().remove()
             })
         ));
+    window.navigator.vibrate(500);
 }
 
 function updatePlayerList () {
