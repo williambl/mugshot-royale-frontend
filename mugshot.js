@@ -30,12 +30,12 @@ $(function(){
         toast(data.name + " has left!", "toast-error");
     });
     socket.on("start-game", function(data) {
-        addSafeZone(data.radius, data.lat, data.long);
+        addSafeZone(data.rad, data.lat, data.long);
         toast("Game Starting!", "toast-success")
     })
     socket.on("safe-zone-will-shrink", function(data) {
-        updateSafeZone(data.radius, data.lat, data.long, data.time);
-        toast("Safe zone shrinking to " + data.radius + "m in " + data.time + " seconds!", "toast-warning")
+        updateSafeZone(data.rad, data.lat, data.long, data.time);
+        toast("Safe zone shrinking to " + data.rad + "m in " + data.time + " seconds!", "toast-warning")
     });
 
     $("#start-game").click(function() {
