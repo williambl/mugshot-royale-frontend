@@ -1,4 +1,4 @@
-var current_position, current_accuracy, safeZone, nextSafeZone, map;
+var current_position, current_accuracy, safeZone, nextSafeZone, map, socket;
 
 $(function(){
     $("#upload").click(function(){
@@ -13,7 +13,7 @@ $(function(){
         }
     });
     updatePlayerList();
-    var socket = io.connect('http://' + document.domain + ':' + location.port + "/websocket");
+    socket = io.connect('http://' + document.domain + ':' + location.port + "/websocket");
     socket.on("connect", function() {
         alert("connected");
     });
@@ -38,6 +38,10 @@ $(function(){
         alert("Safe zone shrinking to " + data.radius + "m in " + data.time + " seconds!")
     });
 
+    $("#start-game").click(function() {
+        socket.emit ('start-game-request', {radius: $("#rad").val, lat: $("#lat").val, long: $("#long").val, time: $("#time").val});
+        alert("sending start game request!");
+    })
 
     map = L.map("map").fitWorld();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -147,6 +151,8 @@ function checkAdminPanel (data) {
         }
     })
 
-    if (!keepAdminPanel)
+    if (!keepAdminPanel) {
         adminPanel.remove();
+        return;
+    }
 }
