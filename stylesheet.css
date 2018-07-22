@@ -50,9 +50,9 @@ li.dead {
     grid-gap: 10px;
     grid-template-areas:
     "header header header header"
-    "side map map ."
-    "side map map ."
-    "side main main ."
+    "side map map admin"
+    "side map map admin"
+    "side main main admin"
     "footer footer footer footer";
 }
 
@@ -83,4 +83,8 @@ li.dead {
 .grid-map {
     grid-area: map;
     height: 600px;
+}
+
+.grid-admin {
+    grid-area: admin;
 }

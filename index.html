@@ -36,6 +36,20 @@
                     <input type="button" class="btn btn-primary" id="upload" value="Upload Photo" />
                 </form>
             </div>
+            <div class="grid grid-admin">
+                <form class="form-group">
+                    <h3>Admin Panel</h3>
+                    <label class="form-label" for="lat">Latitude of origin</label>
+                    <input class="form-number" id="lat" value="51.505" />
+                    <label class="form-label" for="long">Longitude of origin</label>
+                    <input class="form-number" id="long" value="-0.09" />
+
+                    <label class="form-label" for="rad">Radius of safe zone</label>
+                    <input class="form-number" id="rad" value="500" min="10" />
+
+                    <input type="button" class="btn btn-success" id="start-gane" value="Start Game" />
+                </form>
+            </div>
         </div>
     </body>
 </html>
