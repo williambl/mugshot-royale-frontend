@@ -39,7 +39,7 @@ $(function(){
     });
 
     $("#start-game").click(function() {
-        socket.emit ('start-game-request', {radius: $("#rad").val, lat: $("#lat").val, long: $("#long").val, time: $("#time").val});
+        socket.emit ('start-game-request', {"rad": $("#rad").val(), "lat": $("#lat").val(), "long": $("#long").val(), "time": $("#time").val()});
         toast("sending start game request!", "toast-success");
     })
 
