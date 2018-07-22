@@ -15,32 +15,32 @@ $(function(){
     updatePlayerList();
     socket = io.connect('http://' + document.domain + ':' + location.port + "/websocket");
     socket.on("connect", function() {
-        alert("connected");
+        toast("connected", "toast-success");
     });
     socket.on("player-joined", function(data) {
         updatePlayerList();
-        alert(data.name + " has joined!");
+        toast(data.name + " has joined!", "toast-primary");
     });
     socket.on("player-eliminated", function(data) {
         updatePlayerList();
-        alert(data.name + " has been eliminated!");
+        toast(data.name + " has been eliminated!", "toast-error");
     });
     socket.on("player-left", function(data) {
         updatePlayerList();
-        alert(data.name + " has left!");
+        toast(data.name + " has left!", "toast-error");
     });
     socket.on("start-game", function(data) {
         addSafeZone(data.radius, data.lat, data.long);
-        alerT("Game Starting!")
+        toast("Game Starting!", "toast-success")
     })
     socket.on("safe-zone-will-shrink", function(data) {
         updateSafeZone(data.radius, data.lat, data.long, data.time);
-        alert("Safe zone shrinking to " + data.radius + "m in " + data.time + " seconds!")
+        toast("Safe zone shrinking to " + data.radius + "m in " + data.time + " seconds!", "toast-warning")
     });
 
     $("#start-game").click(function() {
         socket.emit ('start-game-request', {radius: $("#rad").val, lat: $("#lat").val, long: $("#long").val, time: $("#time").val});
-        alert("sending start game request!");
+        toast("sending start game request!", "toast-success");
     })
 
     map = L.map("map").fitWorld();
@@ -98,7 +98,7 @@ function onLocationFound(e) {
 }
 
 function onLocationError(e) {
-    alert(e.message);
+    toast(e.message, "toast-error");
 }
 
 function toast(msg, type) {
