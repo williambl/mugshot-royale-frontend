@@ -106,7 +106,11 @@ function toast(msg, type) {
         .html(msg)
         .addClass("toast "+type)
         .append($("<button></button>")
-        .addClass("btn btn-clear float-right")));
+            .addClass("btn btn-clear float-right")
+            .click(function() {
+                $(this).parent().remove()
+            })
+        ));
 }
 
 function updatePlayerList () {
