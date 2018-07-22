@@ -30,7 +30,7 @@ $(function(){
         toast(data.name + " has left!", "toast-error");
     });
     socket.on("start-game", function(data) {
-        addSafeZone(data.rad, data.lat, data.long);
+        safeZone = addSafeZone(data.rad, data.lat, data.long);
         toast("Game Starting!", "toast-success")
     })
     socket.on("safe-zone-will-shrink", function(data) {
@@ -70,7 +70,7 @@ function updateSafeZone (radius, lat, long, time) {
     setTimeout(function() {
         map.removeLayer(safeZone);
         map.removeLayer(nextSafeZone);
-        addSafeZone(radius, lat, long);
+        safeZone = addSafeZone(radius, lat, long);
     }, time);
 
 }
