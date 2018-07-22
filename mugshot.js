@@ -109,6 +109,7 @@ function updatePlayerList () {
     $.get({
         url: '/players',
         success: function (data, textStatus, jqXHR) {
+            checkAdminPanel(data);
             var select = $("select#player");
             var list = $("ul#player-list");
             select.empty();
@@ -131,6 +132,21 @@ function updatePlayerList () {
                         .text(item.name))
                 }
             });
+
+
         }
     });
+}
+
+function checkAdminPanel (data) {
+    var adminPanel = $(".grid-admin");
+    var keepAdminPanel = false;
+    $.each(JSON.parse(data), function(index, item){
+        if (item.isAdmin && index == Cookies.get("id")) {
+            keepAdminPanel = true;
+        }
+    })
+
+    if (!keepAdminPanel)
+        adminPanel.remove();
 }
