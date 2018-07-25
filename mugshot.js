@@ -37,6 +37,10 @@ $(function(){
         updateSafeZone(data.rad, data.lat, data.long, data.time);
         toast("Safe zone shrinking to " + data.rad + "m in " + data.time + " seconds!", "toast-warning")
     });
+    socket.on("send-position", function(data) {
+        toast("sending position!", "")
+        socket.emit("position", {"lat": current_position.getLatLng().lat, "long": current_position.getLatLng().lng})
+    })
 
     $("#start-game").click(function() {
         socket.emit ('start-game-request', {"rad": $("#rad").val(), "lat": $("#lat").val(), "long": $("#long").val(), "time": $("#time").val()});
