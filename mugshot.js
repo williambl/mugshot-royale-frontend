@@ -38,8 +38,8 @@ $(function(){
         toast("Safe zone shrinking to " + data.rad + "m in " + data.time + " seconds!", "toast-warning")
     });
     socket.on("send-position", function(data) {
-        toast("sending position!", "")
         socket.emit("position", {"lat": current_position.getLatLng().lat, "long": current_position.getLatLng().lng})
+        toast("sending position!", "")
     })
 
     $("#start-game").click(function() {
