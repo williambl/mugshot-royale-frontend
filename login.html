@@ -1,13 +1,24 @@
 <html>
     <head>
-        <title>Login</title>
+        <title>Login | Mugshot Royale</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+        <link rel="stylesheet" href="game/stylesheet.css">
     </head>
     <body>
-        <form action="/login" method="post">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name">
+        <div class="grid-wrapper">
+            <div class="grid grid-header">
+                <h1 class="title">Login to Mugshot Royale</h1>
             </div>
-            <button type="submit">Login</button>
+            <div class="grid grid-main">
+                <form action="/login" method="post">
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
