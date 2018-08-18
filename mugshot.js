@@ -128,14 +128,14 @@ function updatePlayerList () {
             select.empty();
             list.empty();
             $.each(JSON.parse(data), function(index, item){
-                if (item.isAlive && index != Cookies.get("id")) {
+                if (item.isAlive && isMe(item)) {
                     select.append($("<option></option>")
                         .attr("value",item.name)
                         .text(item.name));
                     var player = list.append($("<li></li>")
                         .addClass("player alive")
                         .text(item.name))
-                } else if (index == Cookies.get("id")) {
+                } else if (isMe(item)) {
                     var player = list.prepend($("<li></li>")
                         .addClass("player me")
                         .text(item.name))
@@ -155,7 +155,7 @@ function checkAdminPanel (data) {
     var adminPanel = $(".grid-admin");
     var keepAdminPanel = false;
     $.each(JSON.parse(data), function(index, item){
-        if (item.isAdmin && index == Cookies.get("id")) {
+        if (item.isAdmin && isMe(item)) {
             keepAdminPanel = true;
         }
     })
@@ -164,4 +164,8 @@ function checkAdminPanel (data) {
         adminPanel.remove();
         return;
     }
+}
+
+function isMe (player) {
+    return player.id === Cookies.get("id");
 }
